@@ -1,0 +1,57 @@
+.page {
+    background-color: burlywood;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+}
+
+.container {
+    position: absolute;
+    top: 33vh;
+    left: 38vw;
+    width: 24vw;
+    height: 17vh;
+    padding: 2vh;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    background-color: white;
+}
+
+.email {
+    outline: none;
+  display: block;
+  width: 100%;
+  margin: 0 0 2vh;
+  padding: 1vh 1vh;
+  border: 1px solid #ccc;
+  color: #ccc;
+  font-family: "Roboto";
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.password {
+    outline: none;
+    display: block;
+    width: 100%;
+    margin: 0 0 2vh;
+    padding: 1vh 1vh;
+    border: 1px solid #ccc;
+    color: #ccc;
+    font-family: "Roboto";
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.login {
+    cursor: pointer;
+    background: #44c4e7;
+    width: 100%;
+    padding: 1vh 1vh;
+    border: 0;
+    color: #fff;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+}
