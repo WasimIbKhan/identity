@@ -14,7 +14,9 @@ function Login() {
     const [password, setPassword] = useState('')
 
     const loginAction = useCallback(async() => {
+        setLoading(true)
         await dispatch(authAction.login(email,password))
+        setLoading(false)
         navigate('/dashboard')
 
     },[dispatch, email, password])
