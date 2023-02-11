@@ -17,7 +17,7 @@ function Login() {
         setLoading(true)
         await dispatch(authAction.login(email,password))
         setLoading(false)
-        navigate('/dashboard')
+        navigate('/')
 
     },[dispatch, email, password])
 

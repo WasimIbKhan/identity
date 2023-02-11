@@ -18,6 +18,9 @@ import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
 import identitiesReducer from './store/reducer/identities';
 import communitiesReducer from './store/reducer/community'
+import AppLayout from './components/layout/AppLayout';
+import 'boxicons/css/boxicons.min.css';
+
 const rootReducer = combineReducers({
   auth: authReducer,
   indentities: identitiesReducer,
@@ -31,13 +34,10 @@ const AppNavigator = () => {
   return (
     <Router>
       <Routes>
-        <Route index element={<Login />} />
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route path={'home-tab'} element={<Outlet />}>
+          <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="community" element={Community} />
           </Route>
-        </Route>
       </Routes>
     </Router>
   );
@@ -46,7 +46,7 @@ const AppNavigator = () => {
 
 const Dashboard = () => {
   return(
-    <div>
+    <div className='header_container'>
       <NavigationTab/>
       <Outlet />
     </div>
