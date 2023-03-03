@@ -4,7 +4,7 @@ import './sidebar.scss';
 
 const sidebarNavItems = [
     {
-        display: 'Dashboard',
+        display: 'Home',
         icon: <i className='bx bx-home'></i>,
         to: '/',
         section: ''
@@ -16,22 +16,22 @@ const sidebarNavItems = [
         section: 'started'
     },
     {
-        display: 'Calendar',
+        display: 'Community',
         icon: <i className='bx bx-calendar'></i>,
-        to: '/calendar',
-        section: 'calendar'
+        to: '/community',
+        section: 'community'
     },
     {
-        display: 'User',
+        display: 'Personas',
         icon: <i className='bx bx-user'></i>,
-        to: '/user',
-        section: 'user'
+        to: '/persona',
+        section: 'persona'
     },
     {
-        display: 'Orders',
+        display: 'Menu',
         icon: <i className='bx bx-receipt'></i>,
-        to: '/order',
-        section: 'order'
+        to: '/menu',
+        section: 'menu'
     },
 ]
 
@@ -59,7 +59,7 @@ const Sidebar = () => {
 
     return <div className='sidebar'>
         <div className="sidebar__logo">
-            Animate
+            Idenity
         </div>
         <div ref={sidebarRef} className="sidebar__menu">
             <div

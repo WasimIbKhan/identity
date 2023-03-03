@@ -2,7 +2,7 @@ import React,{useState, useEffect, useCallback} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as communityAction from '../store/actions/community'
 import CommunityItem from '../components/CommunityItem'
-function Home() {
+const Communtiy = () => {
     const dispatch = useDispatch()
     const communities = useSelector(state => state.communities.communities)
 
@@ -24,10 +24,13 @@ function Home() {
         })
       },[loadCommunities])
 
-    return(
-        <div>{communities.map((data, index) => (
+      return(
+        <div>
+            {communities.map((data, index) => (
             <CommunityItem title ={data.communityName} Icon = {data.icon} banner = {data.banner}/>
-        ))}</div>
+        ))}
+        </div>
     )
-}
-export default Home;
+};
+
+export default Communtiy;
