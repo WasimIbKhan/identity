@@ -1,6 +1,6 @@
 import './App.scss';
 import 'boxicons/css/boxicons.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
 import Blank from './pages/Blank';
 import { initializeApp } from "firebase/app";
@@ -31,10 +31,16 @@ const AppNavigator = () => {
             <Routes>
                 <Route path='/' element={<AppLayout />}>
                     <Route index element={<Home />} />
-                    <Route path='/started' element={<Blank />} />
-                    <Route path='/community' element={<Community />} />
-                    <Route path='/persona' element={<Persona />} />
-                    <Route path='/menu' element={<Blank />} />
+                    <Route path='started' element={<Blank />} >
+                    </Route>
+                    <Route path='community' element={<Community />} >
+                    </Route>
+                    <Route path='persona' element={<Outlet />} >
+                      <Route index element={<Persona />} />
+                      <Route path='edit-persona' element={<Blank />} />
+                    </Route>
+                    <Route path='menu' element={<Blank />} >
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>
