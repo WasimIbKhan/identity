@@ -29,6 +29,7 @@ const AppNavigator = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route index element={<Login />} />
                 <Route path='/' element={<AppLayout />}>
                     <Route index element={<Home />} />
                     <Route path='started' element={<Blank />} >

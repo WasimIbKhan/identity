@@ -7,7 +7,6 @@ import CommunityItem from '../components/CommunityItem'
 const Persona = () => {
       return(
         <div>
-            <h1>here!</h1>
             <Link to="edit-persona">   
                 <NewPersonaButton />
             </Link>
