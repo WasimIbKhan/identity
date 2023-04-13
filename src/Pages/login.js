@@ -17,7 +17,15 @@ function Login() {
         setLoading(true)
         await dispatch(authAction.login(email,password))
         setLoading(false)
-        navigate('/')
+        navigate('/dashboard')
+
+    },[dispatch, email, password])
+
+    const signupAction = useCallback(async() => {
+        setLoading(true)
+        await dispatch(authAction.login(email,password))
+        setLoading(false)
+        navigate('/signup')
 
     },[dispatch, email, password])
 
@@ -33,6 +41,7 @@ function Login() {
                     <input className="email" placeholder="email" type="email" id="email"  onChange={event => setEmail(event.target.value)} required></input>
                     <input className="password" placeholder="Password" type="password" id="password" required minLength="5"  onChange={event => setPassword(event.target.value)}></input>
                     <input className="login" type="submit" onClick={loginAction}/>
+                    <div className='name' onClick={signupAction}>Signup</div>
                 </div>
             </div>
         </div>

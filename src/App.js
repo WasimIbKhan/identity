@@ -8,6 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import Login from './pages/login'
+import Signup from './pages/signup';
 import Home from './pages/home'
 import Community from './pages/community'
 import Persona from './pages/persona'
@@ -30,7 +31,8 @@ const AppNavigator = () => {
         <BrowserRouter>
             <Routes>
                 <Route index element={<Login />} />
-                <Route path='/' element={<AppLayout />}>
+                <Route path='signup' element={<Signup />} />
+                <Route path='/dashboard' element={<AppLayout />}>
                     <Route index element={<Home />} />
                     <Route path='started' element={<Blank />} >
                     </Route>

@@ -1,18 +1,15 @@
 import React,{useState, useEffect, useCallback} from 'react'
-import NewPersonaButton from '../components/UI/NewPersona'
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
-import * as communityAction from '../store/actions/community'
-import CommunityItem from '../components/CommunityItem'
-const Persona = () => {
+import './persona.css'
+const Identity = () => {
       return(
-        <div>
-            <Link to="edit-persona">   
-                <NewPersonaButton />
-            </Link>
+        <div className='profile-container'>
+            <div className='bannerContainer'>
+                <div className="imageContainer">
+                    <img className="profile-image" src="https://placeimg.com/200/200/animals" alt="profile" />
+                </div>              
+            </div>
         </div>
-        
     )
 };
 
-export default Persona;
+export default Identity;

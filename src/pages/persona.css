@@ -1,0 +1,76 @@
+.profile-container {
+  align-items: center;
+}
+.bannerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nameContainer {
+    padding-top: 5vh;
+    align-items: center;
+    background-color: aquamarine;
+}
+
+.innerNameContainer {
+    align-content: center;
+    background-color: antiquewhite;
+}
+
+.backgroundImage {
+    flex-direction: 'column';
+    overflow: 'hidden';
+  }
+
+.imageContainer {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  }
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+.identityImage {
+    align-self: center;
+  }
+
+.userName {
+    font-weight: 800;
+    font-size: large;
+    padding-bottom: 3vh;
+    padding-left: 8vw;
+  }
+
+.userPersonaType {
+    font-size: 12;
+    color: 'grey';
+  }
+
+.userStatsContainer {
+    flex-direction: "row";
+    justify-content: "space-between";
+    margin-top: 2vh;
+  }
+
+.userStat { 
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.statNumber {
+    font-size: large;
+    font-weight: bold;
+  }
+
+.statLabel {
+    font-weight: bold;
+    padding-top: 2vh;
+    color: aliceblue;
+  }

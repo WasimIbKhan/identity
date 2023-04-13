@@ -6,31 +6,31 @@ const sidebarNavItems = [
     {
         display: 'Home',
         icon: <i className='bx bx-home'></i>,
-        to: '/',
+        to: '/dashboard/',
         section: ''
     },
     {
         display: 'Getting Started',
         icon: <i className='bx bx-star'></i>,
-        to: '/started',
+        to: '/dashboard/started',
         section: 'started'
     },
     {
         display: 'Community',
         icon: <i className='bx bx-calendar'></i>,
-        to: '/community',
+        to: '/dashboard/community',
         section: 'community'
     },
     {
         display: 'Personas',
         icon: <i className='bx bx-user'></i>,
-        to: '/persona',
+        to: '/dashboard/persona',
         section: 'persona'
     },
     {
         display: 'Menu',
         icon: <i className='bx bx-receipt'></i>,
-        to: '/menu',
+        to: '/dashboard/menu',
         section: 'menu'
     },
 ]
