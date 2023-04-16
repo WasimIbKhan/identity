@@ -11,7 +11,7 @@ import {SET_IDENTITIES, CREATE_IDENTITY, UPDATE_IDENTITY, DELETE_IDENTITY
     switch (action.type) {
       case SET_IDENTITIES:
         return {
-          identities: state.identities,
+          identities: action.identities,
           index: state.index
         };
       case CREATE_IDENTITY:

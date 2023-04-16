@@ -20,7 +20,7 @@ import communitiesReducer from './store/reducer/community'
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  indentities: identitiesReducer,
+  identities: identitiesReducer,
   communities: communitiesReducer
 });
 

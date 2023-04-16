@@ -9,27 +9,24 @@ export const SET_IDENTITIES = 'SET_IDENTITIES';
 export const fetchIdentities = () => {
   return async (dispatch, getState) => {
     // any async code you want!
-    
     const userId = getState().auth.userId;
-  
     const db = getFirestore()
 
     const loadedIdentities = [];
     
-    await getDocs(collection(db, `users/${userId}/personas`)).then((querySnapshot) => {
+    await getDocs(collection(db, `users/${userId}/identities`)).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         loadedIdentities.push(
             new Identity(
               doc.id,
-              doc.data().name,
-              doc.data().type,
-              doc.data().profileImage
+              doc.data().identity_name,
+              doc.data().identity_type,
+              doc.data().identity_image
             )
           );
       });
     })
     //await db.collection('users').doc(userId).collection('personas').get().
-
       dispatch({
         type: SET_IDENTITIES,
         identities: loadedIdentities

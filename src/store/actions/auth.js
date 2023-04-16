@@ -12,15 +12,10 @@ export const login = ( email, password) => {
         const auth = getAuth();
       signInWithEmailAndPassword(auth,email, password)
         .then((userCredential) => {
-          // Signed in
-          firebaseUser = userCredential.user;
-          const idToken = firebaseUser.refreshToken
-          dispatch({type: LOGIN, userId: firebaseUser.uid, token: idToken})
+          const userId = userCredential.user.uid;
+          const idToken = userCredential.user.refreshToken          
+          dispatch({type: LOGIN, userId: userId, token: idToken})
             //saveDataToStorage(idToken, firebaseUser.uid);
-            })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        });
+        })
     };
   };

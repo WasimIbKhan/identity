@@ -8,7 +8,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return {
+    return {
         token: action.token,
         userId: action.userId
       };
