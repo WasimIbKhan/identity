@@ -23,8 +23,9 @@ function Login() {
 
     const signupAction = useCallback(async() => {
         setLoading(true)
-        await dispatch(authAction.login(email,password))
-        setLoading(false)
+        await dispatch(authAction.login(email,password)).then(
+            setLoading(false)
+        )
         navigate('/signup')
 
     },[dispatch, email, password])

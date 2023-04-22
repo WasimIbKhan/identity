@@ -10,7 +10,7 @@ const Communtiy = () => {
 
     const loadCommunities = useCallback(async () => {
         try {
-            dispatch(communityAction.fetchCommunities())
+            await dispatch(communityAction.fetchCommunities())
         } catch (error) {
             
         }

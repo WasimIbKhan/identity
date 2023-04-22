@@ -22,10 +22,10 @@ const sidebarNavItems = [
         section: 'community'
     },
     {
-        display: 'Personas',
+        display: 'Identity',
         icon: <i className='bx bx-user'></i>,
-        to: '/dashboard/persona',
-        section: 'persona'
+        to: '/dashboard/identity',
+        section: 'identity'
     },
     {
         display: 'Menu',

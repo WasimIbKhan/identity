@@ -1,21 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import "./IdentityBar.css";
+import Modal from 'react-modal';
 
-function ProfileTopBar(props) {
+function IdentityBar(props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const identities = props.identities
+  const currentIdentity = props.currentIdentity
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const onClickPersona = identity => {
+    console.log("step 1")
+    console.log(identity)
+    const newIndex = identities.indexOf(identity)
+    console.log("step 2")
+    console.log(newIndex)
+    props.onClickIdentity(newIndex)
+    closeModal()
+  }
+  
   return (
     <div className="profile-top-bar">
       <div className="profile-name-container">
-        <div>Wasim</div>
+        <div>{currentIdentity.name}</div>
       </div>
-      <div>
+      <div onClick={openModal}>
         <img
             className="profile-image"
-            src="https://placeimg.com/200/200/animals"
+            src={currentIdentity.profileImage}
             alt="profile"
           />
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        className = "profile-modal"
+        contentLabel="Example Modal"
+      >
+        <div className="profile-modal">
+            <div className="profile-modal-content">
+            <div style={{overflow: 'auto'}}>{
+              props.identities.map((data, index) => (
+                 <div className="profile-icon" onClick={() => onClickPersona(data)}>
+                  <img src={data.profileImage} alt="Profile" />
+                  <div className="profile-info">
+                      <h2>{data.name}</h2>
+                      <p>{data.type}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </div>
+          </div>
+      </Modal>
     </div>
   );
 }
 
-export default ProfileTopBar;
+export default IdentityBar;

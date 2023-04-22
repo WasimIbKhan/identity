@@ -1,6 +1,5 @@
 class Identity {
-    constructor(userId, id, name, type, profileImage) {
-        this.userId = userId
+    constructor(id, name, type, profileImage) {
         this.id = id
         this.name = name
         this.type = type

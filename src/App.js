@@ -12,6 +12,7 @@ import Signup from './pages/signup';
 import Home from './pages/home'
 import Community from './pages/community'
 import Persona from './pages/persona'
+import EditProfile from './pages/EditProfile';
 import NavigationTab from './components/NavigationTab'
 import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
@@ -38,9 +39,9 @@ const AppNavigator = () => {
                     </Route>
                     <Route path='community' element={<Community />} >
                     </Route>
-                    <Route path='persona' element={<Outlet />} >
+                    <Route path='identity' element={<Outlet />} >
                       <Route index element={<Persona />} />
-                      <Route path='edit-persona' element={<Blank />} />
+                      <Route path='edit-identity' element={<EditProfile />} />
                     </Route>
                     <Route path='menu' element={<Blank />} >
                     </Route>
