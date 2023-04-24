@@ -7,14 +7,14 @@ import { useDispatch } from "react-redux";
 
 import {useNavigate, useLocation} from 'react-router-dom';
 
-const EditProfile = props => {
+const CreateIdentity = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation();
 
-  const [name, setName] = useState(location.state.currentIdentity.name);
-  const [profileImage, setProfileImage] = useState(location.state.currentIdentity.profileImage);
-  const [type, setType] = useState(location.state.currentIdentity.type);
+  const [name, setName] = useState('');
+  const [profileImage, setProfileImage] = useState('https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4705658.png&w=350&h=254');
+  const [type, setType] = useState('');
   const [description, setDescription] = useState('');
 
   const [isLoading, setLoading] = useState(false)
@@ -23,7 +23,7 @@ const EditProfile = props => {
   };
 
   const handleProfileImageChange = (event) => {
-    setProfileImage(event.target.files[0]);
+    setProfileImage('https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4705658.png&w=350&h=254');
   };
 
   const handleIdentityTypeChange = (event) => {
@@ -38,7 +38,7 @@ const EditProfile = props => {
     event.preventDefault();
     setLoading(true)
     try {
-      await dispatch(identityAction.updateIdentity(location.state.currentIdentity.id, name, type,profileImage))
+      await dispatch(identityAction.createIdentity(name, type, profileImage))
     } catch (error) {
       console.log(error)
     }
@@ -62,7 +62,7 @@ const EditProfile = props => {
 
   return (
     <div className="edit-profile-container">
-      <h1>Edit Profile</h1>
+      <h1>Create Identity</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -84,10 +84,10 @@ const EditProfile = props => {
           <textarea id="description" value={description} onChange={handleDescriptionChange} />
         </div>
 
-        <button type="submit">Update Profile</button>
+        <button type="submit">Create Identity</button>
       </form>
     </div>
   );
 };
 
-export default EditProfile;
+export default CreateIdentity;

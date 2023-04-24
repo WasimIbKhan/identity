@@ -13,16 +13,20 @@ import Home from './pages/home'
 import Community from './pages/community'
 import Persona from './pages/persona'
 import EditProfile from './pages/EditProfile';
-import NavigationTab from './components/NavigationTab'
+import CreateIdentity from './pages/CreateIdentity';
+import CreatePost from './pages/CreatePost'
+import PostScreen from './pages/PostScreen'
 import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
 import identitiesReducer from './store/reducer/identities';
 import communitiesReducer from './store/reducer/community'
+import postsReducer from './store/reducer/post'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   identities: identitiesReducer,
-  communities: communitiesReducer
+  communities: communitiesReducer,
+  posts: postsReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
@@ -35,13 +39,16 @@ const AppNavigator = () => {
                 <Route path='signup' element={<Signup />} />
                 <Route path='/dashboard' element={<AppLayout />}>
                     <Route index element={<Home />} />
-                    <Route path='started' element={<Blank />} >
+                    <Route path='search' element={<Blank />} >
                     </Route>
                     <Route path='community' element={<Community />} >
                     </Route>
                     <Route path='identity' element={<Outlet />} >
                       <Route index element={<Persona />} />
                       <Route path='edit-identity' element={<EditProfile />} />
+                      <Route path='create-identity' element={<CreateIdentity />} />
+                      <Route path='create-post' element={<CreatePost />} />
+                      <Route path='post' element={<PostScreen />} />
                     </Route>
                     <Route path='menu' element={<Blank />} >
                     </Route>

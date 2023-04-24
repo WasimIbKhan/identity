@@ -1,0 +1,59 @@
+.post-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .post-page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  
+  .post-form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .post-form-input,
+  .post-form-textarea,
+  .post-form-file {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .post-form-textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+  
+  .post-form-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .post-form-submit:hover {
+    background-color: #0062cc;
+  }
+  
+  .post-form-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  

@@ -21,11 +21,7 @@ function IdentityBar(props) {
   }
 
   const onClickPersona = identity => {
-    console.log("step 1")
-    console.log(identity)
     const newIndex = identities.indexOf(identity)
-    console.log("step 2")
-    console.log(newIndex)
     props.onClickIdentity(newIndex)
     closeModal()
   }
@@ -51,8 +47,7 @@ function IdentityBar(props) {
       >
         <div className="profile-modal">
             <div className="profile-modal-content">
-            <div style={{overflow: 'auto'}}>{
-              props.identities.map((data, index) => (
+              {props.identities.map((data, index) => (
                  <div className="profile-icon" onClick={() => onClickPersona(data)}>
                   <img src={data.profileImage} alt="Profile" />
                   <div className="profile-info">
@@ -61,7 +56,6 @@ function IdentityBar(props) {
                   </div>
                 </div>
               ))}
-            </div>
             </div>
           </div>
       </Modal>

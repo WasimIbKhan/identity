@@ -34,12 +34,10 @@ const AppLayout = () => {
         setLoading(false);
       });
     }
-  }, [identities]);
+  }, [identities,loadIdentities]);
 
   const onClickIdentity = async(newIndex) => {
     await dispatch(identityAction.chooseIdentity(newIndex))
-    console.log("step 3")
-    console.log(newIndex)
   }
 
   if (isLoading || identities.length == 0) {

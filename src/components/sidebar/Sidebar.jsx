@@ -10,10 +10,10 @@ const sidebarNavItems = [
         section: ''
     },
     {
-        display: 'Getting Started',
+        display: 'Search',
         icon: <i className='bx bx-star'></i>,
-        to: '/dashboard/started',
-        section: 'started'
+        to: '/dashboard/search',
+        section: 'search'
     },
     {
         display: 'Community',

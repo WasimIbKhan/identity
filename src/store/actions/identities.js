@@ -1,4 +1,4 @@
-import {getFirestore, getDoc, getDocs, addDoc, doc, collection, updateDoc } from "firebase/firestore"; 
+import {getFirestore, setDoc, getDocs, addDoc, doc, collection, updateDoc } from "firebase/firestore"; 
 import Identity from '../../models/identity'
 export const DELETE_IDENTITY = 'DELETE_IDENTITY';
 export const CREATE_IDENTITY = 'CREATE_IDENTITY';
@@ -35,28 +35,28 @@ export const fetchIdentities = () => {
 };
 
 
-export const createIdentity = (name, type, profileImage, description) => {
+export const createIdentity = (name, type, profileImage) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const db = getFirestore()
     let newId;
-    let personaImageUri
-    await addDoc(collection(db, `users/${userId}/personas`)).add({
+    console.log(name)
+    console.log(type)
+    console.log(profileImage)
+    await addDoc(collection(db, `users/${userId}/identities`), {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
-      description: description
     }).then(async(ref) => {
       newId = ref.id
     })
 
-    db.collection('personas').doc(newId).set({
-        userId: userId,
-        identity_name: name,
-        identity_type: type,
-        identity_image: profileImage,
-        description: description
-    })
+    await setDoc(doc(db, `identities/${newId}`), {
+      userId: userId,
+      identity_name: name,
+      identity_type: type,
+      identity_image: profileImage
+    });
 
     try {
       dispatch({
@@ -65,8 +65,7 @@ export const createIdentity = (name, type, profileImage, description) => {
           id: newId,
           name: name,
           type: type,
-          profileImage: profileImage,
-          description: description
+          profileImage: profileImage
         }
       });
     } catch(err) {

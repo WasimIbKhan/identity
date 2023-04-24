@@ -1,17 +1,16 @@
 class Post {
-    constructor(postId, userId, personaId, personaName, personaType, profileImage, postTitle, postMediaUri, postLabel, postTime, comments, isPublic) {
+    constructor(postId, userId, identityId, identity_name, identity_type, identity_image, postTitle, postMediaUri, postLabel, postTime, likes) {
         this.postId = postId
         this.userId = userId
-        this.personaId = personaId
-        this.personaName = personaName
-        this.personaType = personaType
-        this.profileImage = profileImage
+        this.identityId = identityId
+        this.identity_name = identity_name
+        this.identity_type = identity_type
+        this.identity_image = identity_image
         this.postTitle = postTitle
         this.postMediaUri = postMediaUri
         this.postLabel = postLabel
         this.postTime = postTime
-        this.comments = comments
-        this.isPublic = isPublic
+        this.likes = likes
     }
 }
 

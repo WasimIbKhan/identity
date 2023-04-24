@@ -34,12 +34,12 @@ export default (state = initialState, action) => {
       );
       return {
         ...state,
-        personas: state.personas.concat(newIdentity),
+        identities: state.identities.concat(newIdentity),
         index: state.index,
       };
     case UPDATE_IDENTITY:
       const identityIndex = state.identities.findIndex(
-        (persona) => persona.id === action.pid
+        (identity) => identity.id === action.identityData.id
       );
       const updatedIdentity = new Identity(
         action.identityData.id,

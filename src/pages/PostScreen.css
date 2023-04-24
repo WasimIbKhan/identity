@@ -1,0 +1,60 @@
+.post-screen-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .post-header {
+    margin-bottom: 20px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  
+  .post-meta {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  .post-meta span {
+    margin-right: 10px;
+  }
+  
+  .post-content {
+    margin-bottom: 20px;
+  }
+  
+  .post-video {
+    margin-bottom: 10px;
+  }
+  
+  .post-video iframe {
+    width: 100%;
+    height: 400px;
+  }
+  
+  .post-comments {
+    margin-bottom: 20px;
+  }
+  
+  .comment {
+    margin-bottom: 20px;
+  }
+  
+  .comment-meta {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  .comment-meta span {
+    margin-right: 10px;
+  }
+  
+  .comment p {
+    margin: 0;
+  }
+  
