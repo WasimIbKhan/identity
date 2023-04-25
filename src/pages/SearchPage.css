@@ -2,7 +2,7 @@
 .ais-SearchBox {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-left: 30px;
   }
   
   .ais-SearchBox-input {
@@ -12,6 +12,7 @@
     padding: 0.5rem;
     font-size: 1.2rem;
     outline: none;
+    
   }
   
   .ais-SearchBox-submit {
@@ -29,7 +30,6 @@
   }
   
   .ais-Hits-item {
-    border-bottom: 1px solid gray;
     padding: 1rem;
   }
   
@@ -37,3 +37,8 @@
     border-bottom: none;
   }
   
+  .hits {
+    margin: 4px 0;
+    padding: 10px 0;
+    border-top: 2px solid #eee;
+}

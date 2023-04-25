@@ -35,6 +35,14 @@ export const signup = (email, fullname, password) => {
 
         let newId;
 
+        await setDoc(collection(db, `users/${userId}`), {
+          name: fullname,
+          type: 'Public',
+          profileImage: ''
+        }).then(async(ref) => {
+          newId = ref.id
+        })
+
         await addDoc(collection(db, `users/${userId}/identities`), {
           identity_name: fullname,
           identity_type: 'Public',
