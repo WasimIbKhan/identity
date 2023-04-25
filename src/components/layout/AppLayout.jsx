@@ -7,6 +7,7 @@ import IdentityBar from "../IdentityBar/IdentityBar";
 import ReactLoading from "react-loading";
 const AppLayout = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.userId);
   const identities = useSelector((state) => state.identities.identities);
   const currentIdentity = useSelector((state) => state.identities.identities[state.identities.index]);
   const [isLoading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const AppLayout = () => {
     loadIdentities().then(() => {
       setLoading(false);
     });
-  }, [loadIdentities]);
+  }, [loadIdentities,auth]);
 
   useEffect(() => {
     if (identities.length == 0 || identities == null) {
@@ -34,7 +35,7 @@ const AppLayout = () => {
         setLoading(false);
       });
     }
-  }, [identities,loadIdentities]);
+  }, [identities,loadIdentities, auth]);
 
   const onClickIdentity = async(newIndex) => {
     await dispatch(identityAction.chooseIdentity(newIndex))

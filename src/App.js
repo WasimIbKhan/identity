@@ -16,6 +16,7 @@ import EditProfile from './pages/EditProfile';
 import CreateIdentity from './pages/CreateIdentity';
 import CreatePost from './pages/CreatePost'
 import PostScreen from './pages/PostScreen'
+import SearchPage from './pages/SearchPage';
 import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
 import identitiesReducer from './store/reducer/identities';
@@ -39,7 +40,7 @@ const AppNavigator = () => {
                 <Route path='signup' element={<Signup />} />
                 <Route path='/dashboard' element={<AppLayout />}>
                     <Route index element={<Home />} />
-                    <Route path='search' element={<Blank />} >
+                    <Route path='search' element={<SearchPage />} >
                     </Route>
                     <Route path='community' element={<Community />} >
                     </Route>
