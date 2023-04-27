@@ -11,6 +11,7 @@ import Login from './pages/login'
 import Signup from './pages/signup';
 import Home from './pages/home'
 import Community from './pages/community'
+import SearchedIdentity from './pages/SearchedIdentity'
 import Persona from './pages/persona'
 import EditProfile from './pages/EditProfile';
 import CreateIdentity from './pages/CreateIdentity';
@@ -40,7 +41,9 @@ const AppNavigator = () => {
                 <Route path='signup' element={<Signup />} />
                 <Route path='/dashboard' element={<AppLayout />}>
                     <Route index element={<Home />} />
-                    <Route path='search' element={<SearchPage />} >
+                    <Route path='search' element={<Outlet />} >
+                      <Route index element={<SearchPage />} />
+                      <Route path='searched-user' element={<SearchedIdentity />} />
                     </Route>
                     <Route path='community' element={<Community />} >
                     </Route>

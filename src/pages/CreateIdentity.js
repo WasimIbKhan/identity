@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Storage } from 'aws-amplify';
 import './EditProfile.css';
 
 import * as identityAction from "../store/actions/identities";
@@ -22,9 +23,24 @@ const CreateIdentity = props => {
     setName(event.target.value);
   };
 
-  const handleProfileImageChange = (event) => {
-    setProfileImage('https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4705658.png&w=350&h=254');
-  };
+  const uploadFile = async (file) => {
+    try {
+      const result = await Storage.put(file.name, file, { contentType: file.type });
+      return result.key; // Return the key of the uploaded file
+    } catch (error) {
+      console.error('Error uploading file: ', error);
+      return null;
+    }
+  }
+
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    await uploadFile(file);
+    const fileUri = `https://identity373ae11ef5764ad4baba9daf675bf7cc123614-dev.s3.eu-west-2.amazonaws.com/public/${file.name}`
+    setProfileImage(fileUri)
+  }
+
 
   const handleIdentityTypeChange = (event) => {
     setType(event.target.value);
@@ -71,7 +87,8 @@ const CreateIdentity = props => {
 
         <div className="form-group">
           <label htmlFor="profileImage">Profile Image:</label>
-          <input type="file" id="profileImage" onChange={handleProfileImageChange} />
+          <input type="file" id="profileImage" onChange={handleFileChange} />
+          {profileImage && <img src={profileImage} alt="Uploaded file" />}
         </div>
 
         <div className="form-group">

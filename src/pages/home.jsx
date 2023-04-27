@@ -1,8 +1,14 @@
 import React,{useState, useEffect, useCallback} from 'react'
-import NewPersonaButton from '../components/UI/NewPersona'
-import { useSelector, useDispatch } from 'react-redux'
 import * as identityAction from "../store/actions/identities";
 import ReactLoading from "react-loading";
+import { useSelector, useDispatch } from 'react-redux'
+
+import { Amplify } from 'aws-amplify'
+import awsconfig from '../aws-exports';
+Amplify.configure(awsconfig);
+
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const identities = useSelector(state => state.identities.identities);

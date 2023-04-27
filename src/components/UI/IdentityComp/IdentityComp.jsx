@@ -4,10 +4,10 @@ import "./IdentityComp.css";
 function IdentityComp(props) {
   return (
     <div className="profile-icon">
-      <img src={props.identity.identity_image} alt="Profile" />
+      <img src={props.identity.profileImage} alt="Profile" />
       <div className="profile-info">
-        <h2>{props.identity.identity_name}</h2>
-        <p>{props.identity.identity_type}</p>
+        <h2>{props.identity.name}</h2>
+        <p>{props.identity.type}</p>
       </div>
     </div>
   );

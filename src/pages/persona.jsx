@@ -11,8 +11,7 @@ const Identity = () => {
     (state) => state.identities.identities[state.identities.index]
   );
   const posts = useSelector((state) => state.posts.posts);
-  console.log("step 3");
-  console.log(posts);
+  
   const [isLoading, setLoading] = useState(false);
   const loadIdentities = useCallback(async () => {
     try {

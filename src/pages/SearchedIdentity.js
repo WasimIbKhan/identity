@@ -1,28 +1,71 @@
 import React, { useState, useEffect, useCallback } from "react";
+import {getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDoc, where, query } from "firebase/firestore"; 
 import { useSelector, useDispatch } from "react-redux";
 import * as identityAction from "../store/actions/identities";
 import * as postActions from "../store/actions/post";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./persona.css";
-const Identity = () => {
+import Identity from '../models/identity'
+import Post from '../models/post'
+
+const SearchedIdentity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentIdentity = useSelector(
-    (state) => state.identities.identities[state.identities.index]
-  );
-  const posts = useSelector((state) => state.posts.posts);
-  console.log("step 3");
-  console.log(posts);
+  const location = useLocation();
+  const followerUserId = useSelector((state) => state.auth.userId)
+  const userId = location.state.userId
+  const currentIdentity = location.state.currentIdentity;
+
+  const [follow, setFollow] = useState(false)
   const [isLoading, setLoading] = useState(false);
+  const [identities, setIdentities] = useState()
+  const [posts, setPost] = useState()
+
   const loadIdentities = useCallback(async () => {
+    const loadedIdentities = []
     try {
-      await dispatch(identityAction.fetchIdentities());
+      const db = getFirestore()
+      await getDocs(collection(db, `users/${userId}/identities`)).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          loadedIdentities.push(
+              new Identity(
+                doc.id,
+                doc.data().identity_name,
+                doc.data().identity_type,
+                doc.data().identity_image
+              )
+            );
+        });
+      })
+      
     } catch (error) {}
+    setIdentities(loadedIdentities)
   }, [setLoading]);
 
   const loadPosts = async () => {
     try {
-      await dispatch(postActions.fetchPosts(currentIdentity.id));
+      const loadedPosts = []
+      const db = getFirestore()
+      await getDocs(query(collection(db, "posts"), where("identity_id", "==", currentIdentity.id))).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            loadedPosts.push(
+                new Post(
+                    doc.id,
+                    doc.data().userId,
+                    doc.data().identity_id,
+                    doc.data().identity_name,
+                    doc.data().identity_type,
+                    doc.data().identity_image,
+                    doc.data().postTitle,
+                    doc.data().postMediaUri,
+                    doc.data().postLabel,
+                    doc.data().postTime,
+                    doc.data().likes
+                )
+            );
+        });
+      })
+      setPost(loadedPosts)
     } catch (err) {
       console.log(err.message);
     }
@@ -41,35 +84,27 @@ const Identity = () => {
     loadPosts().then(() => {
       setLoading(false);
     });
-  }, [currentIdentity]);
-
-  const updateIdentity = useCallback(async () => {
-    navigate("/dashboard/identity/edit-identity", {
-      state: { currentIdentity: currentIdentity },
-    });
-  });
-
-  const createIdentity = useCallback(async () => {
-    navigate("/dashboard/identity/create-identity");
-  });
-
-  const createPost = useCallback(async () => {
-    navigate("/dashboard/identity/create-post", {
-      state: { currentIdentity: currentIdentity },
-    })
-  });
+  }, [loadPosts]);
 
   const showPost = useCallback(async (post) => {
-    console.log(post)
     navigate("/dashboard/identity/post", {
       state: { post: post },
     })
   });
+
+  const followFunc = useCallback(async() => {
+    const db = getFirestore()
+    await setDoc(doc(db, `users/${userId}/follower_request/${followerUserId}`), {
+      identity_id: currentIdentity.id,
+    });
+    console.log('done')
+  })
+
   return (
     <div style={{ display: "flex" }}>
       <div className="profile-info">
         <div className="bannerContainer">
-          <div className="imageContainer" onClick={updateIdentity}>
+          <div className="imageContainer">
             <img
               className="profile-image"
               src={currentIdentity.profileImage}
@@ -97,14 +132,12 @@ const Identity = () => {
             </div>
           </div>
         </div>
-        <div>
-          <button className="profile-edit-button" onClick={createIdentity}>
-            Create Identity
-          </button>
-          <button className="profile-edit-button" onClick={createPost}>
-            Create Post
+        <div style={{color: follow? 'grey': 'white'}}>
+        <button className="profile-edit-button" onClick={followFunc}>
+            Follow
           </button>
         </div>
+       
         <div className="profile-posts">
           <h2>Posts</h2>
           <div className="post">
@@ -132,7 +165,7 @@ const Identity = () => {
               </p>
             </div>
           </div>
-          {posts.map((data, index) => (
+          {posts && posts.map((data, index) => (
             <div className="post" onClick={() => showPost(data)}>
               <div className="post-header" onClick={() => showPost(data)}>
                 <h3 className="post-title">{data.postTitle}</h3>
@@ -161,4 +194,4 @@ const Identity = () => {
   );
 };
 
-export default Identity;
+export default SearchedIdentity;
