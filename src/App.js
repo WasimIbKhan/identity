@@ -18,15 +18,18 @@ import CreateIdentity from './pages/CreateIdentity';
 import CreatePost from './pages/CreatePost'
 import PostScreen from './pages/PostScreen'
 import SearchPage from './pages/SearchPage';
+import NotificationPage from './pages/Notification';
 import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
 import identitiesReducer from './store/reducer/identities';
 import communitiesReducer from './store/reducer/community'
+import relationshipsReducer from './store/reducer/relationships'
 import postsReducer from './store/reducer/post'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   identities: identitiesReducer,
+  relationships: relationshipsReducer,
   communities: communitiesReducer,
   posts: postsReducer
 });
@@ -54,7 +57,8 @@ const AppNavigator = () => {
                       <Route path='create-post' element={<CreatePost />} />
                       <Route path='post' element={<PostScreen />} />
                     </Route>
-                    <Route path='menu' element={<Blank />} >
+                    <Route path='notifications' element={<Outlet />} >
+                      <Route index element={<NotificationPage />} />
                     </Route>
                 </Route>
             </Routes>

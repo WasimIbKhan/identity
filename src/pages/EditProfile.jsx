@@ -33,10 +33,8 @@ const EditProfile = props => {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    console.log('file')
     setError(file.name)
     await uploadFile(file);
-    console.log("key")
     const fileUri = `https://identity373ae11ef5764ad4baba9daf675bf7cc123614-dev.s3.eu-west-2.amazonaws.com/public/${file.name}`
     setFileUrl(fileUri)
   }
@@ -58,7 +56,7 @@ const EditProfile = props => {
     event.preventDefault();
     setLoading(true)
     try {
-      await dispatch(identityAction.updateIdentity(location.state.currentIdentity.id, name, type, fileUrl))
+      await dispatch(identityAction.updateIdentity(location.state.currentIdentity.id, name, type, fileUrl, location.state.currentIdentity.isPublic))
     } catch (error) {
       console.log(error)
     }

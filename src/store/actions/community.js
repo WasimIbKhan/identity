@@ -25,18 +25,16 @@ export const fetchCommunities = () => {
   
       const communities = [];
       
-      await getDocs(collection(db, `communities`)).then((querySnapshot) => {
+      await getDocs(collection(db, `users/${userId}/joined_communities`)).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             communities.push(
               new Community(
                 doc.id,
-                doc.data().moderatorId,
-                doc.data().moderatorName,
-                doc.data().moderatorProfileImage,
-                doc.data().communityName,
-                doc.data().icon,
-                doc.data().banner,
-                doc.data().introduction,
+                doc.data().community_name,
+                doc.data().community_icon,
+                doc.data().community_banner,
+                doc.data().community_introduction,
+                doc.data().joined_identity
               )
             );
         });
@@ -50,9 +48,6 @@ export const fetchCommunities = () => {
       
     };
   };
-  
- 
-  
 
   const UploadFile = async (uri, type) => {
     const response = await fetch(uri);

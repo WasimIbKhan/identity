@@ -14,7 +14,7 @@ const CreateIdentity = props => {
   const location = useLocation();
 
   const [name, setName] = useState('');
-  const [profileImage, setProfileImage] = useState('https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4705658.png&w=350&h=254');
+  const [profileImage, setProfileImage] = useState('')
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
 

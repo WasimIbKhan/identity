@@ -28,10 +28,10 @@ const sidebarNavItems = [
         section: 'identity'
     },
     {
-        display: 'Menu',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/dashboard/menu',
-        section: 'menu'
+        display: 'Notifications',
+        icon: <i className='bx bx-notification'></i>,
+        to: '/dashboard/notifications',
+        section: 'notifications'
     },
 ]
 

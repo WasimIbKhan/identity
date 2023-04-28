@@ -1,10 +1,13 @@
-import React,{useState, useEffect, useCallback} from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as communityAction from '../store/actions/community'
 import CommunityItem from '../components/CommunityItem'
 const Communtiy = () => {
     const dispatch = useDispatch()
-    const communities = useSelector(state => state.communities.communities)
+    const currentIdentity = useSelector(
+        (state) => state.identities.identities[state.identities.index]
+    );
+    const communities = useSelector(state => state.communities.communities.filter(community => community.joinedIdentity == currentIdentity.id))
 
     const [isLoading, setLoading] = useState(false)
 
@@ -12,23 +15,23 @@ const Communtiy = () => {
         try {
             await dispatch(communityAction.fetchCommunities())
         } catch (error) {
-            
+            console.log(error)
         }
-        
-      },[setLoading])
 
-      useEffect(() => {
+    }, [setLoading])
+
+    useEffect(() => {
         setLoading(true)
         loadCommunities().then(() => {
             setLoading(false)
         })
-      },[loadCommunities])
+    }, [loadCommunities])
 
-      return(
+    return (
         <div>
             {communities.map((data, index) => (
-            <CommunityItem title ={data.communityName} Icon = {data.icon} banner = {data.banner}/>
-        ))}
+                <CommunityItem title={data.communityName} Icon={data.icon} banner={data.banner} />
+            ))}
         </div>
     )
 };

@@ -23,7 +23,8 @@ export const fetchIdentities = () => {
               doc.id,
               doc.data().identity_name,
               doc.data().identity_type,
-              doc.data().identity_image
+              doc.data().identity_image,
+              doc.data().is_main_identity
             )
           );
       });
@@ -51,6 +52,7 @@ export const createIdentity = (name, type, profileImage) => {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
+      is_main_identity: false
     }).then(async(ref) => {
       newId = ref.id
     })
@@ -59,7 +61,8 @@ export const createIdentity = (name, type, profileImage) => {
       userId: userId,
       identity_name: name,
       identity_type: type,
-      identity_image: profileImage
+      identity_image: profileImage,
+      is_main_identity: false
     });
 
     try {
@@ -80,7 +83,7 @@ export const createIdentity = (name, type, profileImage) => {
   };
 };
 
-export const updateIdentity = (identityId, name, type, profileImage) => {
+export const updateIdentity = (identityId, name, type, profileImage, isPublic) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const db = getFirestore()
@@ -90,7 +93,13 @@ export const updateIdentity = (identityId, name, type, profileImage) => {
       identity_image: profileImage,
     })
 
-    if(type == 'Public') {
+    await updateDoc(doc(db, `identities/${identityId}`), {
+      identity_name: name,
+      identity_type: type,
+      identity_image: profileImage,
+    })
+
+    if(isPublic) {
       await updateDoc(doc(db, `users/${userId}`), {
         name: name,
         type: type,

@@ -38,13 +38,14 @@ export const signup = (email, fullname, password) => {
         await setDoc(doc(db, `users/${userId}`), {
           name: fullname,
           type: 'Public',
-          ProfileImage: ''
+          profileImage: ''
         })
 
         await addDoc(collection(db, `users/${userId}/identities`), {
           identity_name: fullname,
           identity_type: 'Public',
-          identity_image: ''
+          identity_image: '',
+          is_main_identity: true
         }).then(async(ref) => {
           newId = ref.id
         })
@@ -53,7 +54,8 @@ export const signup = (email, fullname, password) => {
           userId: userId,
           identity_name: fullname,
           identity_type: 'Public',
-          identity_image: ''
+          identity_image: '',
+          is_main_identity: true
         });
 
         dispatch({ type: SIGNUP, userId: userId, token: idToken });

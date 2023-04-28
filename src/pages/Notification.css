@@ -1,0 +1,73 @@
+.followersRequestContainer {
+    margin: 1%;
+    border: 1px solid #f5f3f3;
+    border-radius: 20px;
+    padding: 2.5%;
+    background-color:lightgray;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5%;
+}
+
+.profile-icon {
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-info h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.profile-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.title {
+    color: black;
+    font-size: 18px;
+    font-family: 'lato.regular';
+    margin-left: 2%;
+}
+
+.paragraph {
+    color: #a9a9a9;
+    font-family: 'lato-regular';
+    font-size: 14px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+}
+
+.button {
+    margin-right: 3%;
+    border-radius: 10px;
+}
+
+.deleteIcon {
+    display: inline-block;
+    width: 18px;
+    background: url('https://cdn3.iconfinder.com/data/icons/basic-ui-3/500/trash-512.png') no-repeat center center / contain;
+}
+
+.addIcon {
+    display: inline-block;
+    width: 18px;
+    background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-plus-empty-512.png') no-repeat center center / contain;
+}

@@ -15,10 +15,13 @@ const SearchedIdentity = () => {
   const followerUserId = useSelector((state) => state.auth.userId)
   const userId = location.state.userId
   const currentIdentity = location.state.currentIdentity;
+  const identities = useSelector(state => state.identities.identities)
+  const publicIdentity = identities.find(identity => identity.isPublic == true)
+  console.log(publicIdentity)
 
   const [follow, setFollow] = useState(false)
   const [isLoading, setLoading] = useState(false);
-  const [identities, setIdentities] = useState()
+  const [searchedIdentities, setSearchedIdentities] = useState()
   const [posts, setPost] = useState()
 
   const loadIdentities = useCallback(async () => {
@@ -39,7 +42,7 @@ const SearchedIdentity = () => {
       })
       
     } catch (error) {}
-    setIdentities(loadedIdentities)
+    setSearchedIdentities(loadedIdentities)
   }, [setLoading]);
 
   const loadPosts = async () => {
@@ -76,15 +79,10 @@ const SearchedIdentity = () => {
     setLoading(true);
     loadIdentities().then(() => {
       setLoading(false);
-    });
-  }, [loadIdentities]);
-
-  useEffect(() => {
-    setLoading(true);
-    loadPosts().then(() => {
+      loadPosts()
       setLoading(false);
     });
-  }, [loadPosts]);
+  }, [loadIdentities]);
 
   const showPost = useCallback(async (post) => {
     navigate("/dashboard/identity/post", {
@@ -95,7 +93,10 @@ const SearchedIdentity = () => {
   const followFunc = useCallback(async() => {
     const db = getFirestore()
     await setDoc(doc(db, `users/${userId}/follower_request/${followerUserId}`), {
-      identity_id: currentIdentity.id,
+      identity_id: publicIdentity.id,
+      identity_name: publicIdentity.name,
+      identity_type: publicIdentity.type,
+      identity_image: publicIdentity.profileImage,
     });
     console.log('done')
   })
