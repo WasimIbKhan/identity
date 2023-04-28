@@ -7,7 +7,9 @@ import * as relationshipsActions from '../store/actions/relationships'
 const NotificationPage = (props) => {
     const dispatch = useDispatch()
     const followerRequests = useSelector(state => state.relationships.followersRequests)
-    const [isLoading, setLoading] = useState()
+    const user = useSelector(state => state.auth.user)
+    const [isLoading, setLoading] = useState(true)
+
     const loadIdentities = useCallback(async () => {
         try {
             await dispatch(relationshipsActions.fetchFollowersRequest());
@@ -17,39 +19,45 @@ const NotificationPage = (props) => {
     }, [dispatch]);
 
     useEffect(() => {
-        setLoading(true)
-        loadIdentities().then(
+        loadIdentities().then(() => {
             setLoading(false)
-        )
-    }, [dispatch])
-    if (isLoading) {
+        })
+    }, [loadIdentities])
 
+    async function addFollower(followerData) {
+        console.log(followerData)
+        dispatch(relationshipsActions.addFollower(followerData.id, followerData.name, "Public", followerData.profileImage))
     }
-    if (isLoading) {
-        return (
-            <div>load</div>
-        )
+
+    function handleDelete() {
+        console.log('delete button clicked');
     }
+
     return (
         <div className="notification-page">
-            {followerRequests.map((data, index) => (
-                <div className="followersRequestContainer" onClick={{}}>
-                    <div className="profile-icon">
-                        <img src={data.profileImage} alt="Profile" />
-                        <div className="profile-info">
-                            <h2>{data.name}</h2>
-                            <p>{data.type}</p>
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <div>
+                    {followerRequests.map((data, index) => (
+                        <div className="followersRequestContainer" key={index}>
+                            <div className="profile-icon">
+                                <img src={data.profileImage} alt="Profile" />
+                                <div className="profile-info">
+                                    <h2>{data.name}</h2>
+                                    <p>{data.type}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="buttonContainer">
+                                <div className="button" onClick={handleDelete}>Delete</div>
+                                <div className="button" onClick={() => addFollower(data)}>Add</div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div className="buttonContainer">
-                        <div className="button" onClick={{}}>Delete</div>
-                        <div className="button" onClick={{}}>Add</div>
-                    </div>
+                    ))}
                 </div>
-            ))}
+            )}
         </div>
-
     );
 };
 

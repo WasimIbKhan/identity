@@ -11,9 +11,6 @@ export const UN_JOIN_COMMUNITY = 'UN_JOIN_COMMUNITY'
 export const CHOOSING_COMMUNITY = 'CHOOSING_COMMUNITY'
 export const DELETE_COMMUNITY_POST = "DELETE_COMMUNITY_POST"
 
-
-
-
 //import {Storage} from 'aws-amplify';
 
 export const fetchCommunities = () => {

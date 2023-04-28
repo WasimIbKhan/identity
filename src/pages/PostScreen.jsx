@@ -18,7 +18,6 @@ const PostScreen = () => {
           <span className="post-date">2 hours ago</span>
         </div>
       </div>
-
       <div className="post-content">
         <div className="post-video">
           <iframe
