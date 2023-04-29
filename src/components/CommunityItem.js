@@ -4,7 +4,7 @@ import './CommunityItem.css';
 
 const CommunityItem = (props) => {
   return (
-    <div>
+    <div onClick={() => props.onClickCommunity(props.community)}>
         <Card className='community-item' imageBackground={props.banner}>
             <div className='community__description'>
                 <h2>{props.title}</h2>

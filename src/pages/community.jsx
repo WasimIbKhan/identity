@@ -2,7 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as communityAction from '../store/actions/community'
 import CommunityItem from '../components/CommunityItem'
+
+import { useNavigate } from 'react-router-dom';
+
 const Communtiy = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const currentIdentity = useSelector(
         (state) => state.identities.identities[state.identities.index]
@@ -27,10 +31,16 @@ const Communtiy = () => {
         })
     }, [loadCommunities])
 
+    const onClickCommunity = community => {
+        navigate('/dashboard/community/community-screen', {
+            state: {community: community}
+        })
+    }
+
     return (
         <div>
             {communities.map((data, index) => (
-                <CommunityItem title={data.communityName} Icon={data.icon} banner={data.banner} />
+                <CommunityItem community={data} onClickCommunity={onClickCommunity} title={data.communityName} Icon={data.icon} banner={data.banner} />
             ))}
         </div>
     )

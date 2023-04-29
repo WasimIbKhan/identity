@@ -11,6 +11,7 @@ import Login from './pages/login'
 import Signup from './pages/signup';
 import Home from './pages/home'
 import Community from './pages/community'
+import CommunityPage from './pages/CommunityPage';
 import SearchedIdentity from './pages/SearchedIdentity'
 import Persona from './pages/persona'
 import EditProfile from './pages/EditProfile';
@@ -25,13 +26,15 @@ import identitiesReducer from './store/reducer/identities';
 import communitiesReducer from './store/reducer/community'
 import relationshipsReducer from './store/reducer/relationships'
 import postsReducer from './store/reducer/post'
+import homeReducer from './store/reducer/home'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   identities: identitiesReducer,
   relationships: relationshipsReducer,
   communities: communitiesReducer,
-  posts: postsReducer
+  posts: postsReducer,
+  home: homeReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
@@ -48,7 +51,9 @@ const AppNavigator = () => {
                       <Route index element={<SearchPage />} />
                       <Route path='searched-user' element={<SearchedIdentity />} />
                     </Route>
-                    <Route path='community' element={<Community />} >
+                    <Route path='community' element={<Outlet />} >
+                      <Route index element={<Community />} />
+                      <Route path="community-screen" element={<CommunityPage />} />
                     </Route>
                     <Route path='identity' element={<Outlet />} >
                       <Route index element={<Persona />} />

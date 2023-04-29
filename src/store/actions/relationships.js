@@ -1,5 +1,5 @@
 import User from '../../models/user'
-import { getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDoc, where, query, increment } from "firebase/firestore";
+import { getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDoc, where, query, increment, deleteDoc } from "firebase/firestore";
 export const SET_FOLLOWERS = 'SET_FOLLOWERS'
 export const SET_FOLLOWING = 'SET_FOLLOWING'
 export const SET_FOLLOWERS_REQUEST = 'SET_FOLLOWERS_REQUEST'
@@ -38,31 +38,33 @@ export const addFollower = (followerUserId, name, type, profileImage) => {
     
      const db = getFirestore()
 
-    await setDoc(doc(db, `users/${userId}/followers/${followerUserId}`), {
+    setDoc(doc(db, `users/${userId}/followers/${followerUserId}`), {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage
     })
 
-    await setDoc(doc(db, `users/${followerUserId}/following/${userId}`), {
+    setDoc(doc(db, `users/${followerUserId}/following/${userId}`), {
       identity_name: user.name,
       identity_type: "Public",
       identity_image: user.profileImage
     })
 
-    await updateDoc(doc(db, `users/${userId}`), {
+    updateDoc(doc(db, `users/${userId}`), {
       followers: increment(1)
     })
 
-    await updateDoc(doc(db, `users/${followerUserId}`), {
+    updateDoc(doc(db, `users/${followerUserId}`), {
       following: increment(1)
     })
 
-    await addDoc(collection(db, `users/${followerUserId}/home`), {
+    addDoc(collection(db, `users/${followerUserId}/home`), {
       userId: userId,
       identity_id: user.id,
       priority: 3
     })
+
+    deleteDoc(doc(db, `users/${userId}/follower_request/${followerUserId}`))
 
     dispatch({
       type: ADD_FOLLOWER,
