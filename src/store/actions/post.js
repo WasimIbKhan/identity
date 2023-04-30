@@ -55,7 +55,7 @@ export const fetchPosts = identity_id => {
         identity_type: identity.type,
         identity_image: identity.profileImage,
         postTitle: postTitle,
-        postMediaUri: '',
+        postMediaUri: postMedia,
         postLabel: postLabel !== ''?  postLabel: '',
         postTime: postTime.toString(),
         likes: likes
@@ -70,7 +70,7 @@ export const fetchPosts = identity_id => {
         identity_type: identity.type,
         identity_image: identity.profileImage,
         postTitle: postTitle,
-        postMediaUri: '',
+        postMediaUri: postMedia,
         postLabel: postLabel !== ''?  postLabel: '',
         postTime: postTime.toString(),
         likes: likes
@@ -87,7 +87,7 @@ export const fetchPosts = identity_id => {
             identity_type: identity.type,
             identity_image: identity.profileImage,
             postTitle,
-            postMediaUri: '',
+            postMediaUri: postMedia,
             postLabel,
             postTime,
             likes

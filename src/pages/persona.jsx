@@ -106,31 +106,6 @@ const Identity = () => {
         </div>
         <div className="profile-posts">
           <h2>Posts</h2>
-          <div className="post">
-            <div className="post-header">
-              <h3 className="post-title">This is a Hybrid Post Title</h3>
-              <div className="post-meta">
-                <span className="post-date">2 hours ago</span>
-              </div>
-            </div>
-            <div className="post-content">
-              <div className="post-video">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <p>
-                This is the post content, it can contain text, images, or even
-                videos.
-              </p>
-            </div>
-          </div>
           {posts.map((data, index) => (
             <div className="post" onClick={() => showPost(data)}>
               <div className="post-header" onClick={() => showPost(data)}>
@@ -143,7 +118,7 @@ const Identity = () => {
                   <iframe
                     width="560"
                     height="315"
-                    src={"https://www.youtube.com/embed/jMwt9zOFX2I"}
+                    src={data.postMediaUri}
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
