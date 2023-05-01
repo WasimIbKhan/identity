@@ -9,11 +9,12 @@ export const fetchPosts = () => {
     const db = getFirestore()
     const userIds = [] 
     const loadedPosts = []
-    await getDocs(collection(db, `users/${userId}/identities`)).then((querySnapshot) => {
+    await getDocs(collection(db, `users/${userId}/following`)).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        userIds.push(doc.data().userId)
+        userIds.push(doc.id)
       });
     })
+    console.log(userIds)
 
     await getDocs(query(collection(db, "posts"), where("userId", "in", userIds))).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {

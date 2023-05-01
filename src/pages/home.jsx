@@ -1,6 +1,7 @@
 import React,{useState, useEffect, useCallback} from 'react'
 import * as homeAction from "../store/actions/home";
 import ReactLoading from "react-loading";
+import PostItem from '../components/UI/PostItem';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { Amplify } from 'aws-amplify'
@@ -54,27 +55,7 @@ const Home = () => {
       return(
         <div>
         {posts.map((data, index) => (
-            <div className="post" onClick={() => showPost(data)}>
-              <div className="post-header" onClick={() => showPost(data)}>
-                <h3 className="post-title">{data.postTitle}</h3>
-                <div className="post-meta">
-                </div>
-              </div>
-              <div className="post-content" onClick={() => showPost(data)}>
-                <div className="post-video">
-                  <iframe
-                    width="560"
-                    height="315"
-                    src={"https://www.youtube.com/embed/jMwt9zOFX2I"}
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <p>{data.postLabel}</p>
-              </div>
-            </div>
+            <PostItem post={data} showPost={showPost}/>
           ))}
     </div>
     )
