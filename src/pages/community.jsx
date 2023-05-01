@@ -37,8 +37,15 @@ const Communtiy = () => {
         })
     }
 
+    const onClickCreate = () => {
+        navigate('/dashboard/community/create-community')
+    }
+
     return (
         <div>
+            <button className="profile-edit-button" onClick={onClickCreate}>
+            Create Community
+          </button>
             {communities.map((data, index) => (
                 <CommunityItem community={data} onClickCommunity={onClickCommunity} title={data.communityName} Icon={data.icon} banner={data.banner} />
             ))}

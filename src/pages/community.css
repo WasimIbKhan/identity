@@ -1,0 +1,12 @@
+.profile-edit-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #262626;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
