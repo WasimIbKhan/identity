@@ -5,9 +5,9 @@ import {useLocation } from "react-router-dom";
 const PostScreen = () => {
   const location = useLocation();
 
-  const [title, setTitle] = useState(location.state.post.postTitle);
-  const [content, setContent] = useState(location.state.post.postLabel);
-  const [media, setMedia] = useState(location.state.post.postMediaUri);
+  const title = location.state.post.postTitle;
+  const content = location.state.post.postLabel;
+  const media= location.state.post.postMediaUri;
 
   return (
     <div className="post-screen-container">

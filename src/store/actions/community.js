@@ -46,26 +46,44 @@ export const fetchCommunities = () => {
     };
   };
 
-  export const createIdentity = (title, introduction, icon, banner) => {
+  export const createCommunity = (title, introduction, icon, banner) => {
     return async (dispatch, getState) => {
       const userId = getState().auth.userId;
       const db = getFirestore()
       let newId;
 
-      await addDoc(collection(db, `users/${userId}/communities`), {
-        community_title: title,
+      const identities = getState().identities.identities;
+      const index = getState().identities.index;
+      const identity = identities[index]
+
+      console.log(
+        `userId => ${userId} \n
+        title => ${title} \n
+        introduction => ${introduction} \n
+        icon => ${icon} \n
+        banner => ${banner} \n
+        identity id => ${identity.id} \n
+        identity name => ${identity.name} \n
+        image => ${identity.profileImage} \n`)
+
+      await addDoc(collection(db, `users/${userId}/joined_communities`), {
+        community_name: title,
         community_introduction: introduction,
         community_icon: icon,
-        community_banner: banner
+        community_banner: banner,
+        joined_identity: identity.id
       }).then(async(ref) => {
         newId = ref.id
       })
   
       await setDoc(doc(db, `communities/${newId}`), {
-        community_title: title,
-        community_introduction: introduction,
-        community_icon: icon,
-        community_banner: banner
+        communityName: title,
+        banner: banner,
+        icon: icon,
+        introduction: introduction,
+        moderatorId: identity.id,
+        moderatorName: identity.name,
+        moderatorProfileImage: identity.profileImage
       });
   
       try {

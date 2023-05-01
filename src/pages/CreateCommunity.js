@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 const CreateCommunity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate() 
+
   const [title, setTitle] = useState("")
   const [introduction, setIntroduction] = useState("")
   const [banner, setBanner] = useState("")
   const [icon, setIcon] = useState("")
 
+  const [isLoading, setLoading] = useState(false)
   const uploadFile = async (file) => {
     try {
       const result = await Storage.put(file.name, file, { contentType: file.type });
@@ -44,15 +46,22 @@ const CreateCommunity = () => {
   }
 
   const handleSubmit = async(event) => {
+    setLoading(true)
     try {
-        await dispatch(communityAction.createIdentity(title, introduction, icon, banner))
+        await dispatch(communityAction.createCommunity(title, introduction, icon, banner))
     } catch (error) {
         
     }
+    setLoading(false)
     navigate("/dashboard/community")
     event.preventDefault();
   };
 
+  if(isLoading) {
+    return(
+      <div>loading...</div>
+    )
+  }
   return (
     <form className="communityForm" onSubmit={handleSubmit}>
       <h2 className="formTitle">{"Create Community"}</h2>
@@ -66,7 +75,12 @@ const CreateCommunity = () => {
       </div>
       <div className="formGroup">
         <label htmlFor="banner">Banner Image URL</label>
-        <input type="file" id="profileImage" onChange={handleBannerChange} />
+        <input
+          className="post-form-file"
+          type="file"
+          accept="image/*"
+          onChange={handleBannerChange}
+        />
           {banner && <img src={banner} alt="Uploaded file" />}
       </div>
       <div className="formGroup">

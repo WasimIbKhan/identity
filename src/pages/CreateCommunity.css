@@ -1,6 +1,57 @@
 .communityForm {
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
-    align-items: center;
-    padding: 20px
+    padding: 60px;
 }  
+.post-form-file {
+  width: 40%;
+}
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="identity-type"],
+  textarea {
+    display: block;
+    width: 40%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  
+  input[type="file"] {
+    margin-top: 5px;
+    width: 40%;
+  }
+  
+  button[type="submit"] {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #005fa3;
+  }
+  form {
+    flex-direction: column;
+  }
+  .edit-left {
+
+  }
+
+  .edit-right {
+        
+    }
+  
