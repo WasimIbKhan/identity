@@ -63,7 +63,12 @@ const Identity = () => {
     navigate("/dashboard/identity/post", {
       state: { post: post },
     })
-  });
+  })
+
+  const showCase = useCallback(async () => {
+    navigate("/dashboard/identity/showcase")
+  })
+
   return (
     <div style={{ display: "flex" }}>
       <div className="profile-info">
@@ -96,13 +101,18 @@ const Identity = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="button-container">
           <button className="profile-edit-button" onClick={createIdentity}>
             Create Identity
           </button>
           <button className="profile-edit-button" onClick={createPost}>
             Create Post
           </button>
+          {currentIdentity.privacy && 
+            <button className="profile-edit-button" onClick={showCase}>
+            Showcase
+          </button>
+          }
         </div>
         <div className="profile-posts">
           <h2>Posts</h2>

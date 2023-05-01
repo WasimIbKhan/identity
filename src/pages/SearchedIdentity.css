@@ -1,9 +1,7 @@
 .profile-name-container {
-    margin-left: 20px;
   }
   .bannerContainer {
     display: flex;
-    margin-left: 20px;
   }
   
   .innerNameContainer {
@@ -100,9 +98,10 @@
   
     
   .profile-edit-button {
-    display: block;
-    margin-top: 20px;
+    margin-top: 45px;
+    justify-self: flex-end;
     padding: 10px 20px;
+    height: 40px;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
     font-weight: bold;
@@ -116,11 +115,13 @@
   }
   
   .profile-posts {
-    margin-bottom: 20px;
+    margin-top: 30px;
   }
   
+  .identity-list {
+  }
   .post {
-    margin-bottom: 20px;
+    margin-top: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;

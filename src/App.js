@@ -20,6 +20,7 @@ import CreateIdentity from './pages/CreateIdentity';
 import CreatePost from './pages/CreatePost'
 import PostScreen from './pages/PostScreen'
 import SearchPage from './pages/SearchPage';
+import Showcase from './pages/ShowCase';
 import NotificationPage from './pages/Notification';
 import ApiKeys from './constants/ApiKeys';
 import authReducer from './store/reducer/auth'
@@ -62,6 +63,7 @@ const AppNavigator = () => {
                       <Route path='edit-identity' element={<EditProfile />} />
                       <Route path='create-identity' element={<CreateIdentity />} />
                       <Route path='create-post' element={<CreatePost />} />
+                      <Route path='showcase' element={<Showcase />} />
                       <Route path='post' element={<PostScreen />} />
                     </Route>
                     <Route path='notifications' element={<Outlet />} >

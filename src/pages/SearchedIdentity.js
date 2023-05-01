@@ -1,31 +1,30 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDoc, where, query } from "firebase/firestore"; 
 import { useSelector, useDispatch } from "react-redux";
-import * as identityAction from "../store/actions/identities";
-import * as postActions from "../store/actions/post";
+import './SearchedIdentity.css'
 import { useNavigate, useLocation } from "react-router-dom";
 import "./persona.css";
 import Identity from '../models/identity'
 import Post from '../models/post'
-
+import IdentityList from "../components/IdentityList/IdentityList";
 const SearchedIdentity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const followerUserId = useSelector((state) => state.auth.userId)
   const userId = location.state.userId
-  const currentIdentity = location.state.currentIdentity;
+  const user = location.state.user
+  const [currentIdentity, setIdentity] = useState(location.state.currentIdentity);
   const identities = useSelector(state => state.identities.identities)
   const publicIdentity = identities.find(identity => identity.isPublic == true)
-  console.log(publicIdentity)
 
   const [follow, setFollow] = useState(false)
   const [isLoading, setLoading] = useState(false);
-  const [searchedIdentities, setSearchedIdentities] = useState()
+  const [searchedIdentities, setSearchedIdentities] = useState([])
   const [posts, setPost] = useState()
 
   const loadIdentities = useCallback(async () => {
-    const loadedIdentities = []
+    let loadedIdentities = []
     try {
       const db = getFirestore()
       await getDocs(collection(db, `users/${userId}/identities`)).then((querySnapshot) => {
@@ -35,14 +34,17 @@ const SearchedIdentity = () => {
                 doc.id,
                 doc.data().identity_name,
                 doc.data().identity_type,
-                doc.data().identity_image
+                doc.data().identity_image,
+                doc.data().is_main_identity,
+                doc.data().identity_privacy
               )
             );
         });
       })
-      
+      setSearchedIdentities(loadedIdentities)
     } catch (error) {}
-    setSearchedIdentities(loadedIdentities)
+    
+    
   }, [setLoading]);
 
   const loadPosts = async () => {
@@ -82,7 +84,7 @@ const SearchedIdentity = () => {
       loadPosts()
       setLoading(false);
     });
-  }, [loadIdentities]);
+  }, [loadIdentities, currentIdentity]);
 
   const showPost = useCallback(async (post) => {
     navigate("/dashboard/identity/post", {
@@ -98,9 +100,11 @@ const SearchedIdentity = () => {
       identity_type: publicIdentity.type,
       identity_image: publicIdentity.profileImage,
     });
-    console.log('done')
   })
 
+  const onClickIdentity = identity => {
+    setIdentity(identity)
+  }
   return (
     <div style={{ display: "flex" }}>
       <div className="profile-info">
@@ -120,52 +124,24 @@ const SearchedIdentity = () => {
             <div className="profile-stats">
               <div className="profile-stat">
                 <span className="stat-label">Posts</span>
-                <span className="stat-number">10</span>
+                <span className="stat-number">{user.identities}</span>
               </div>
               <div className="profile-stat">
                 <span className="stat-label">Followers</span>
-                <span className="stat-number">100</span>
+                <span className="stat-number">{user.followers}</span>
               </div>
               <div className="profile-stat">
                 <span className="stat-label">Following</span>
-                <span className="stat-number">50</span>
+                <span className="stat-number">{user.following}</span>
               </div>
             </div>
           </div>
-        </div>
-        <div style={{color: follow? 'grey': 'white'}}>
-        <button className="profile-edit-button" onClick={followFunc}>
+          <div className="profile-edit-button" onClick={followFunc}>
             Follow
-          </button>
-        </div>
-       
-        <div className="profile-posts">
-          <h2>Posts</h2>
-          <div className="post">
-            <div className="post-header">
-              <h3 className="post-title">This is a Hybrid Post Title</h3>
-              <div className="post-meta">
-                <span className="post-date">2 hours ago</span>
-              </div>
-            </div>
-            <div className="post-content">
-              <div className="post-video">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <p>
-                This is the post content, it can contain text, images, or even
-                videos.
-              </p>
-            </div>
           </div>
+        </div>
+        <IdentityList identities={identities} onClickIdentity={onClickIdentity}/>
+        <div className="profile-posts">
           {posts && posts.map((data, index) => (
             <div className="post" onClick={() => showPost(data)}>
               <div className="post-header" onClick={() => showPost(data)}>
@@ -178,7 +154,7 @@ const SearchedIdentity = () => {
                   <iframe
                     width="560"
                     height="315"
-                    src={"https://www.youtube.com/embed/jMwt9zOFX2I"}
+                    src={posts.postMediaUri}
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -31,6 +31,28 @@ export const fetchFollowersRequest = () => {
   }
 }
 
+export const fetchFollowers = () => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId
+    const db = getFirestore()
+    const followers = []
+    await getDocs(collection(db, `users/${userId}/followers`)).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        followers.push(
+            new User(
+              doc.id,
+              doc.data().identity_name,
+              doc.data().identity_image
+            ))
+      });
+    });
+    dispatch({
+      type: SET_FOLLOWERS,
+      followers: followers
+    })
+  }
+}
+
 export const addFollower = (followerUserId, name, type, profileImage) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId

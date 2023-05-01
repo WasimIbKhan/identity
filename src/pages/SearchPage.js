@@ -23,22 +23,22 @@ const SearchPage = () => (
 function Hit({ hit }) {
   const navigate = useNavigate()
       return (
-        <div style={{marginLeft: '30px'}} onClick={() => fetchUserIdentity(hit.objectID, navigate)}>
+        <div style={{marginLeft: '30px'}} onClick={() => fetchUserIdentity(hit, hit.objectID, navigate)}>
             <IdentityComp identity={hit}/>
         </div>
     );
   }
 
-async function fetchUserIdentity(userId, navigate) {
+async function fetchUserIdentity(hit, userId, navigate) {
     const db = getFirestore()
     
-    let user = new Identity();
+    let publicIdentity = new Identity();
 
     const q = await query(collection(db, "identities"), where("identity_type", "==", "Public"), where("userId", "==", userId))
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      user = new Identity(
+      publicIdentity = new Identity(
           doc.id,
           doc.data().identity_name,
           doc.data().identity_type,
@@ -47,7 +47,7 @@ async function fetchUserIdentity(userId, navigate) {
     });
 
     navigate("/dashboard/search/searched-user", {
-      state: { currentIdentity: user, userId: userId},
+      state: {user: hit, currentIdentity: publicIdentity, userId: userId },
     });
   }
 
