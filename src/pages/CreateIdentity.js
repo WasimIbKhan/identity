@@ -5,7 +5,7 @@ import './EditProfile.css';
 import * as identityAction from "../store/actions/identities";
 import ReactLoading from "react-loading";
 import { useDispatch } from "react-redux";
-
+import Switch from "react-switch";
 import {useNavigate, useLocation} from 'react-router-dom';
 
 const CreateIdentity = props => {
@@ -17,7 +17,7 @@ const CreateIdentity = props => {
   const [profileImage, setProfileImage] = useState('')
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
-
+  const [privacy, setPrivacy] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -54,7 +54,7 @@ const CreateIdentity = props => {
     event.preventDefault();
     setLoading(true)
     try {
-      await dispatch(identityAction.createIdentity(name, type, profileImage))
+      await dispatch(identityAction.createIdentity(name, type, profileImage, privacy))
     } catch (error) {
       console.log(error)
     }
@@ -100,7 +100,8 @@ const CreateIdentity = props => {
           <label htmlFor="description">Description:</label>
           <textarea id="description" value={description} onChange={handleDescriptionChange} />
         </div>
-
+        <Switch onChange={() => setPrivacy(!privacy)} checked={privacy} />
+        <div>{privacy}</div>
         <button type="submit">Create Identity</button>
       </form>
     </div>

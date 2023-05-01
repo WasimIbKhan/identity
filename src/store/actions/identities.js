@@ -24,7 +24,8 @@ export const fetchIdentities = () => {
               doc.data().identity_name,
               doc.data().identity_type,
               doc.data().identity_image,
-              doc.data().is_main_identity
+              doc.data().is_main_identity,
+              doc.data().identity_privacy
             )
           );
       });
@@ -39,7 +40,7 @@ export const fetchIdentities = () => {
 };
 
 
-export const createIdentity = (name, type, profileImage) => {
+export const createIdentity = (name, type, profileImage, privacy) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const db = getFirestore()
@@ -52,7 +53,8 @@ export const createIdentity = (name, type, profileImage) => {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
-      is_main_identity: false
+      is_main_identity: false,
+      identity_privacy: privacy
     }).then(async(ref) => {
       newId = ref.id
     })
@@ -62,7 +64,8 @@ export const createIdentity = (name, type, profileImage) => {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
-      is_main_identity: false
+      is_main_identity: false,
+      identity_privacy: privacy
     });
 
     try {
@@ -72,7 +75,8 @@ export const createIdentity = (name, type, profileImage) => {
           id: newId,
           name: name,
           type: type,
-          profileImage: profileImage
+          profileImage: profileImage,
+          privacy: privacy
         }
       });
     } catch(err) {
@@ -83,7 +87,7 @@ export const createIdentity = (name, type, profileImage) => {
   };
 };
 
-export const updateIdentity = (identityId, name, type, profileImage, isPublic) => {
+export const updateIdentity = (identityId, name, type, profileImage, privacy, isPublic) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const db = getFirestore()
@@ -91,12 +95,14 @@ export const updateIdentity = (identityId, name, type, profileImage, isPublic) =
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
+      identity_privacy: privacy
     })
 
     await updateDoc(doc(db, `identities/${identityId}`), {
       identity_name: name,
       identity_type: type,
       identity_image: profileImage,
+      identity_privacy: privacy
     })
 
     if(isPublic) {

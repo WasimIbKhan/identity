@@ -6,6 +6,7 @@ import * as identityAction from "../store/actions/identities";
 import ReactLoading from "react-loading";
 import { useDispatch } from "react-redux";
 
+import Switch from "react-switch";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const EditProfile = props => {
@@ -14,10 +15,9 @@ const EditProfile = props => {
   const location = useLocation();
 
   const [name, setName] = useState(location.state.currentIdentity.name);
-  const [profileImage, setProfileImage] = useState(location.state.currentIdentity.profileImage);
   const [type, setType] = useState(location.state.currentIdentity.type);
   const [description, setDescription] = useState('');
-  const [error, setError] = useState('luv u ')
+  const [privacy, setPrivacy] = useState(location.state.currentIdentity.privacy)
   const [fileUrl, setFileUrl] = useState(location.state.currentIdentity.profileImage);
 
   const uploadFile = async (file) => {
@@ -30,10 +30,8 @@ const EditProfile = props => {
     }
   }
 
-
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    setError(file.name)
     await uploadFile(file);
     const fileUri = `https://identity373ae11ef5764ad4baba9daf675bf7cc123614-dev.s3.eu-west-2.amazonaws.com/public/${file.name}`
     setFileUrl(fileUri)
@@ -56,7 +54,7 @@ const EditProfile = props => {
     event.preventDefault();
     setLoading(true)
     try {
-      await dispatch(identityAction.updateIdentity(location.state.currentIdentity.id, name, type, fileUrl, location.state.currentIdentity.isPublic))
+      await dispatch(identityAction.updateIdentity(location.state.currentIdentity.id, name, type, fileUrl, privacy, location.state.currentIdentity.isPublic))
     } catch (error) {
       console.log(error)
     }
@@ -86,7 +84,6 @@ const EditProfile = props => {
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" value={name} onChange={handleNameChange} />
         </div>
-        <div>{error}</div>
         <div className="form-group">
           <label htmlFor="profileImage">Profile Image:</label>
           <input type="file" onChange={handleFileChange} />
@@ -96,12 +93,12 @@ const EditProfile = props => {
           <label>type:</label>
           <input type="text" id="identity-type" value={type} onChange={handleIdentityTypeChange} />
         </div>
-
         <div className="form-group">
           <label htmlFor="description">Description:</label>
           <textarea id="description" value={description} onChange={handleDescriptionChange} />
         </div>
-
+        <Switch onChange={() => setPrivacy(!privacy)} checked={privacy} />
+        <div>{privacy}</div>
         <button type="submit">Update Profile</button>
       </form>
     </div>
