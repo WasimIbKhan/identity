@@ -60,7 +60,8 @@ export const signup = (email, fullname, password) => {
           identity_name: fullname,
           identity_type: 'Public',
           identity_image: '',
-          is_main_identity: true
+          is_main_identity: true,
+          identity_privacy: false
         }).then(async(ref) => {
           newId = ref.id
         })
@@ -70,7 +71,8 @@ export const signup = (email, fullname, password) => {
           identity_name: fullname,
           identity_type: 'Public',
           identity_image: '',
-          is_main_identity: true
+          is_main_identity: true,
+          identity_privacy: false
         });
 
         dispatch({ type: SIGNUP, userId: userId, token: idToken, user: {

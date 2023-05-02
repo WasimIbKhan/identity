@@ -27,6 +27,19 @@ npm start
 
 And you should be set
 
+if you have aws ampkify problems just type in the terminal 
+
+npm start
+
+also here are some test accounts
+
+test@test.com
+test2@test.com
+test3@test.com
+test4@test.com
+test5@test.com
+test6@test.com
+
 if you have any questions then call me 07551399658
 wasimibkhan@gmail.com
 Thanks 
