@@ -27,23 +27,6 @@ npm start
 
 And you should be set
 
-here are some test accounts that you might want to use to log in
-
-test@test.com
-test2@test.com
-test3@test.com
-test4@test.com
-test5@test.com
-test6@test.com
-
 if you have any questions then call me 07551399658
 wasimibkhan@gmail.com
 Thanks 
-
-p.s.
-
-if you run into some problems with amplfiy just do 
-
-npm start
-
-and hope for the best 
