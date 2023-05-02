@@ -3,10 +3,10 @@ import {getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDo
 import { useSelector, useDispatch } from "react-redux";
 import './SearchedIdentity.css'
 import { useNavigate, useLocation } from "react-router-dom";
-import "./persona.css";
 import Identity from '../models/identity'
 import Post from '../models/post'
 import IdentityList from "../components/IdentityList/IdentityList";
+import * as relationshipsAction from '../store/actions/relationships'
 const SearchedIdentity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const SearchedIdentity = () => {
   const user = location.state.user
   const [currentIdentity, setIdentity] = useState(location.state.currentIdentity);
   const identities = useSelector(state => state.identities.identities)
+  const showCasedIdentities = useSelector(state => state.relationships.showcased_identities)
   const publicIdentity = identities.find(identity => identity.isPublic == true)
 
   const [follow, setFollow] = useState(false)
@@ -24,7 +25,7 @@ const SearchedIdentity = () => {
   const [posts, setPost] = useState()
 
   const loadIdentities = useCallback(async () => {
-    let loadedIdentities = []
+    const loadedIdentities = []
     try {
       const db = getFirestore()
       await getDocs(collection(db, `users/${userId}/identities`)).then((querySnapshot) => {
@@ -41,9 +42,24 @@ const SearchedIdentity = () => {
             );
         });
       })
-      setSearchedIdentities(loadedIdentities)
+
+      let showcased_ids = showCasedIdentities.map(showcased_identity => showcased_identity.id);
+
+      var filtered = loadedIdentities.filter(function(item) {
+        return showcased_ids.indexOf(item.id) !== -1 || item.privacy==false;  
+      });
+
+      setSearchedIdentities(filtered)
     } catch (error) {}
     
+    
+  }, [setLoading]);
+
+  const loadShowcasedIdentities = useCallback(async () => {
+    try {
+      await dispatch(relationshipsAction.fetchShowCasedIdentities())
+      
+    } catch (error) {}
     
   }, [setLoading]);
 
@@ -79,8 +95,8 @@ const SearchedIdentity = () => {
 
   useEffect(() => {
     setLoading(true);
+    loadShowcasedIdentities()
     loadIdentities().then(() => {
-      setLoading(false);
       loadPosts()
       setLoading(false);
     });
@@ -140,7 +156,7 @@ const SearchedIdentity = () => {
             Follow
           </div>
         </div>
-        <IdentityList identities={identities} onClickIdentity={onClickIdentity}/>
+        {searchedIdentities && <IdentityList identities={searchedIdentities} onClickIdentity={onClickIdentity}/>}
         <div className="profile-posts">
           {posts && posts.map((data, index) => (
             <div className="post" onClick={() => showPost(data)}>

@@ -2,6 +2,7 @@ import {
   SET_FOLLOWERS,
   SET_FOLLOWING,
   SET_FOLLOWERS_REQUEST,
+  SET_SHOWCASED_IDENTITIES,
   ADD_FOLLOWER
 } from "../actions/relationships";
 
@@ -10,6 +11,7 @@ const initialState = {
   followersRequests: [],
   followers: [],
   following: [],
+  showcased_identities: []
 };
 
 export default (state = initialState, action) => {
@@ -41,6 +43,11 @@ export default (state = initialState, action) => {
         ...state,
         followers: action.followers,
       };
+      case SET_SHOWCASED_IDENTITIES:
+        return {
+          ...state,
+          showcased_identities: action.showcased_identities
+        }
   }
   return state;
 };

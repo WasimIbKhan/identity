@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './EditProfile.css';
+import './EditIdentity.css';
 import { Storage } from 'aws-amplify';
 
 import * as identityAction from "../store/actions/identities";

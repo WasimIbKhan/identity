@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as identityAction from "../store/actions/identities";
 import * as postActions from "../store/actions/post";
 import { useNavigate } from "react-router-dom";
-import "./persona.css";
+import "./Identity.css";
 const Identity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

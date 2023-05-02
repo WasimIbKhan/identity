@@ -1,8 +1,10 @@
 import User from '../../models/user'
 import { getFirestore, setDoc, getDocs, getDoc, addDoc, doc, collection, updateDoc, where, query, increment, deleteDoc } from "firebase/firestore";
+import Identity from '../../models/identity';
 export const SET_FOLLOWERS = 'SET_FOLLOWERS'
 export const SET_FOLLOWING = 'SET_FOLLOWING'
 export const SET_FOLLOWERS_REQUEST = 'SET_FOLLOWERS_REQUEST'
+export const SET_SHOWCASED_IDENTITIES = 'SET_SHOWCASED_IDENTITIES'
 export const ADD_FOLLOWER = "ADD_FOLLOWER"
 
 
@@ -23,7 +25,6 @@ export const fetchFollowersRequest = () => {
       });
     });
 
-    console.log(loadedRequests)
     dispatch({
       type: SET_FOLLOWERS_REQUEST,
       followersRequests: loadedRequests
@@ -49,6 +50,34 @@ export const fetchFollowers = () => {
     dispatch({
       type: SET_FOLLOWERS,
       followers: followers
+    })
+  }
+}
+
+export const fetchShowCasedIdentities = () => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const db = getFirestore()
+    const showcased_identities = [];
+
+    await getDocs(collection(db, `users/${userId}/showcased_identities`)).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        showcased_identities.push(
+            new Identity(
+              doc.id,
+              doc.data().identity_name,
+              doc.data().identity_type,
+              doc.data().identity_image,
+              doc.data().is_main_identity,
+              doc.data().identity_privacy
+            ))
+      });
+    });
+    console.log("here")
+    console.log(showcased_identities)
+    dispatch({
+      type: SET_SHOWCASED_IDENTITIES,
+      showcased_identities: showcased_identities
     })
   }
 }
