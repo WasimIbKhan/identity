@@ -4,7 +4,7 @@ I'll brief you on how to install this project
 Try the first op
 Run the file in your terminal, run these commands 
 
-npm install -g @aws-amplify/cli
+npm install 
 
 npm start
 
