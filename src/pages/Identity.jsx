@@ -7,6 +7,7 @@ import "./Identity.css";
 const Identity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(state => state.auth.user)
   const currentIdentity = useSelector(
     (state) => state.identities.identities[state.identities.index]
   );
@@ -88,15 +89,15 @@ const Identity = () => {
             <div className="profile-stats">
               <div className="profile-stat">
                 <span className="stat-label">Posts</span>
-                <span className="stat-number">10</span>
+                <span className="stat-number">{user.identities}</span>
               </div>
               <div className="profile-stat">
                 <span className="stat-label">Followers</span>
-                <span className="stat-number">100</span>
+                <span className="stat-number">{user.following}</span>
               </div>
               <div className="profile-stat">
                 <span className="stat-label">Following</span>
-                <span className="stat-number">50</span>
+                <span className="stat-number">{user.follower}</span>
               </div>
             </div>
           </div>

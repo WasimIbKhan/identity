@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as communityAction from '../store/actions/community'
 import CommunityItem from '../components/CommunityItem'
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +15,7 @@ const Communtiy = () => {
     const communities = useSelector(state => state.communities.communities.filter(community => community.joinedIdentity == currentIdentity.id))
 
     const [isLoading, setLoading] = useState(false)
-
+    const [focus, setFocus] = useState(false)
     const loadCommunities = useCallback(async () => {
         try {
             await dispatch(communityAction.fetchCommunities())
@@ -46,11 +47,24 @@ const Communtiy = () => {
             <button className="profile-edit-button" onClick={onClickCreate}>
             Create Community
           </button>
-            {communities.map((data, index) => (
+          {focus && <InstantSearch searchClient={searchClient} indexName="USERS">
+                <SearchBox />
+                <Hits hitComponent={Hit} />
+            </InstantSearch>}
+            {!focus && communities.map((data, index) => (
                 <CommunityItem community={data} onClickCommunity={onClickCommunity} title={data.communityName} Icon={data.icon} banner={data.banner} />
             ))}
         </div>
     )
 };
+
+function Hit({ hit }) {
+    const navigate = useNavigate()
+        return (
+          <div style={{marginLeft: '30px'}} onClick={() => fetchUserIdentity(hit, hit.objectID, navigate)}>
+              <CommunityItem identity={hit}/>
+          </div>
+      );
+    }
 
 export default Communtiy;
