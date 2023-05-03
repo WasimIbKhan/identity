@@ -23,7 +23,7 @@ const SearchPage = () => (
 function Hit({ hit }) {
   const navigate = useNavigate()
       return (
-        <div style={{marginLeft: '30px'}} onClick={() => fetchUserIdentity(hit, hit.objectID, navigate)}>
+        <div onClick={() => fetchUserIdentity(hit, hit.objectID, navigate)}>
             <IdentityComp identity={hit}/>
         </div>
     );
