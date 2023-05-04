@@ -8,36 +8,68 @@ export const fetchPosts = () => {
     const userId = getState().auth.userId
     const db = getFirestore()
     const userIds = [] 
-    const loadedPosts = []
+    const communityIds = []
+    const communityPosts = []
+    const followingPosts = []
     await getDocs(collection(db, `users/${userId}/following`)).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         userIds.push(doc.id)
       });
     })
-    console.log(userIds)
 
-    await getDocs(query(collection(db, "posts"), where("userId", "in", userIds))).then((querySnapshot) => {
+    await getDocs(collection(db, `users/${userId}/joined_communities`)).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        loadedPosts.push(
-          new Post(
-            doc.id,
-            doc.data().userId,
-            doc.data().identity_id,
-            doc.data().identity_name,
-            doc.data().identity_type,
-            doc.data().identity_image,
-            doc.data().postTitle,
-            doc.data().postMediaUri,
-            doc.data().postLabel,
-            doc.data().postTime,
-            doc.data().likes
-        )
-          );
+        communityIds.push(doc.id)
       });
-    })
-    console.log(loadedPosts)
+    });
+
+    if (communityIds.length !== 0 ) {
+      await getDocs(query(collection(db, "posts"), where("community_id", "in", communityIds))).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          communityPosts.push(
+            new Post(
+              doc.id,
+              doc.data().userId,
+              doc.data().identity_id,
+              doc.data().identity_name,
+              doc.data().identity_type,
+              doc.data().identity_image,
+              doc.data().postTitle,
+              doc.data().postMediaUri,
+              doc.data().postLabel,
+              doc.data().postTime,
+              doc.data().likes
+          )
+            );
+        });
+      })
+    }
+   
+    if(userIds.length !== 0) {
+      await getDocs(query(collection(db, "posts"), where("userId", "in", userIds))).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          followingPosts.push(
+            new Post(
+              doc.id,
+              doc.data().userId,
+              doc.data().identity_id,
+              doc.data().identity_name,
+              doc.data().identity_type,
+              doc.data().identity_image,
+              doc.data().postTitle,
+              doc.data().postMediaUri,
+              doc.data().postLabel,
+              doc.data().postTime,
+              doc.data().likes
+          )
+            );
+        });
+      })
+    }
+    const allPosts = [...communityPosts,...followingPosts]
+    console.log(allPosts)
     dispatch({
       type: SET_HOME_POSTS,
-      posts: loadedPosts
+      posts: allPosts
     });
   }}

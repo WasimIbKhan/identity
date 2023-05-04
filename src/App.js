@@ -58,7 +58,7 @@ const AppNavigator = () => {
                       <Route index element={<Community />} />
                       <Route path="community-screen" element={<CommunityPage />} />
                       <Route path="create-community" element={<CreateCommunity />} />
-                      <Route path='create--community-post' element={<CreateCommunityPost />} />
+                      <Route path='create-community-post' element={<CreateCommunityPost />} />
                     </Route>
                     <Route path='identity' element={<Outlet />} >
                       <Route index element={<Identity />} />

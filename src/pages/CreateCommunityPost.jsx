@@ -16,6 +16,11 @@ function CreateCommunityPost() {
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
 
+  const currentIdentity = useSelector(
+    (state) => state.identities.identities[state.identities.index]
+);
+
+const community = location.state.community
   const [isLoading, setLoading] = useState(false);
 
   const userId = useSelector(state => state.auth.userId)
@@ -59,8 +64,6 @@ function CreateCommunityPost() {
       postTime: postTime.toString(),
       likes: likes,
       community_id: community.id
-    }).then(async(ref) => {
-      postId = ref.id
     })
   }  
 
@@ -68,21 +71,21 @@ function CreateCommunityPost() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    try {
-      await dispatch(
-        postActions.createPost(
-          location.state.currentIdentity,
+    try { 
+        createPost(
+          currentIdentity,
           title,
           image,
           content,
           new Date(),
           0
         )
-      );
     } catch (error) {
       console.log(error);
     }
-    navigate("/dashboard/identity");
+    navigate('/dashboard/community/community-screen', {
+      state: { community: community }
+  })
     setLoading(false);
   };
   return (

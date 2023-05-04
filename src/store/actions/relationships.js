@@ -73,7 +73,6 @@ export const fetchShowCasedIdentities = () => {
             ))
       });
     });
-    console.log("here")
     console.log(showcased_identities)
     dispatch({
       type: SET_SHOWCASED_IDENTITIES,

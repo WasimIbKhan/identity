@@ -60,7 +60,6 @@ const Identity = () => {
   });
 
   const showPost = useCallback(async (post) => {
-    console.log(post)
     navigate("/dashboard/identity/post", {
       state: { post: post },
     })

@@ -12,7 +12,6 @@ export const fetchPosts = identity_id => {
       const userId = getState().auth.userId;
       let loadedPosts = []
     //users/${userId}/identities${identity_id}/posts
-        console.log(identity_id)
       const db = getFirestore()
       await getDocs(query(collection(db, "posts"), where("identity_id", "==", identity_id))).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

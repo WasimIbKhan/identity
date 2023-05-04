@@ -24,7 +24,7 @@ const CommunityPage = () => {
       await setDoc(doc(db, `users/${userId}/joined_communities/${community.id}`), {
         community_name: community.communityName,
         community_icon: community.icon,
-        community_banner: community.introduction,
+        community_banner: community.banner,
         community_introduction: community.introduction,
         joined_identity: currentIdentities.id
       });

@@ -3,7 +3,6 @@ import Card from '../components/UI/Card'
 import './CommunityItem.css';
 
 const CommunityItem = ({community}) => {
-  console.log(community.identity)
   return (
     <div onClick={() => community.onClickCommunity(community.community)}>
         <Card className='community-item' imageBackground={community.banner}>

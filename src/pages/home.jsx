@@ -12,7 +12,6 @@ const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const posts = useSelector(state => state.home.posts);
-    console.log(posts)
     const [isLoading, setLoading] = useState(true);
   
     const loadIdentities = useCallback(async () => {

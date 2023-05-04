@@ -54,7 +54,7 @@ const Communtiy = () => {
             </button>
             {!focus && communities.map((data, index) => (
                 <CommunityItem community={data} onClickCommunity={onClickCommunity} title={data.communityName} Icon={data.icon} banner={data.banner} />
-            ))}            
+            ))}  
             <InstantSearch searchClient={searchClient} indexName="COMMUNITIES">
                 <SearchBox onSubmit={() => setFocus(!focus)} />
                 <Hits hitComponent={Hit} />
