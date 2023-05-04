@@ -5,7 +5,6 @@
   
   .backgroundImage {
     height: 300px;
-    margin-bottom: calc(100vh * 0.025);
   }
   
   .profileImage {
@@ -20,7 +19,10 @@
     overflow: hidden;
     border-color: white;
   }
-  
+  .profile-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
   .image {
     width: 100%;
     height: 100%;
@@ -30,6 +32,7 @@
   .infoContainer {
     margin-left: calc(100vw * 0.05);
     margin-right: calc(100vw * 0.05);
+    margin-top: 30px;
     justify-content: center;
     align-items: flex-start;
   }
@@ -42,7 +45,6 @@
   .title {
     color: black;
     font-size: 18px;
-    margin-bottom: calc(100vh * 0.005);
     text-align: right;
     align-self: flex-start;
     flex-direction: row;
@@ -50,33 +52,47 @@
   }
   
   .button {
-    background-color: white;
     border-radius: calc(100vw * 0.025);
     border-color: black;
     align-self: flex-start;
     flex-direction: row;
-    border-width: calc(100vw * 0.005);
-    margin-top: calc(100vh * 0.13);
-    margin-left: calc(100vw * 0.05);
-    padding-top: calc(100vh * 0.004);
-    padding-bottom: calc(100vh * 0.004);
-    padding-left: calc(100vw * 0.0175);
-    padding-right: calc(100vw * 0.0175);
+    border-width: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     position: absolute;
     overflow: hidden;
+    margin-left: 70px;
+    margin-top: 30px;
+    cursor: pointer;
   }
-  
+
+  .button-post {
+    border-radius: calc(100vw * 0.025);
+    border-color: black;
+    align-self: flex-start;
+    flex-direction: row;
+    border-width: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    overflow: hidden;
+    margin-left: 110px;
+    margin-top: 30px;
+    cursor: pointer;
+  }
   .buttonText {
     font-size: 13px;
-    color: black;
-    font-weight: 300;
     font-family: 'lato.heavy';
   }
   
   .intro {
     color: grey;
     font-size: 14px;
-    margin-bottom: calc(100vh * 0.0125);
+    margin-top: 60px;
   }
   
   .noPoststextContainer {

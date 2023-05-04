@@ -5,7 +5,7 @@ import CommunityItem from '../components/CommunityItem'
 import CommunityHitItem from '../components/CommunityHitItem'
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
-
+import Community from '../models/community'
 import { useNavigate } from 'react-router-dom';
 
 const searchClient = algoliasearch('6VHY9J9IO1', 'e9bf5584609fa3675766219c3261b1fa');
@@ -20,7 +20,7 @@ const Communtiy = () => {
 
     const [isLoading, setLoading] = useState(false)
     const [focus, setFocus] = useState(false)
-    console.log(focus)
+
     const loadCommunities = useCallback(async () => {
         try {
             await dispatch(communityAction.fetchCommunities())
@@ -64,12 +64,18 @@ const Communtiy = () => {
 };
 
 function Hit({ hit }) {
-    console.log(hit)
     const navigate = useNavigate()
-    
+    const community = new Community(
+        hit.objectID,
+        hit.communityName,
+        hit.icon,
+        hit.banner,
+        hit.introduction
+    )
+
     return (
         <div style={{ marginLeft: '30px' }} onClick={() =>  navigate('/dashboard/community/community-screen', {
-            state: { community: hit }
+            state: { community: community }
         })}>
             <CommunityHitItem community={hit} />
         </div>

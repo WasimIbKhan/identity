@@ -13,6 +13,7 @@ import Home from './pages/home'
 import Community from './pages/community'
 import CommunityPage from './pages/CommunityPage';
 import CreateCommunity from './pages/CreateCommunity';
+import CreateCommunityPost from './pages/CreateCommunityPost'
 import SearchedIdentity from './pages/SearchedIdentity'
 import Identity from './pages/Identity'
 import EditProfile from './pages/EditIdentity';
@@ -57,6 +58,7 @@ const AppNavigator = () => {
                       <Route index element={<Community />} />
                       <Route path="community-screen" element={<CommunityPage />} />
                       <Route path="create-community" element={<CreateCommunity />} />
+                      <Route path='create--community-post' element={<CreateCommunityPost />} />
                     </Route>
                     <Route path='identity' element={<Outlet />} >
                       <Route index element={<Identity />} />
